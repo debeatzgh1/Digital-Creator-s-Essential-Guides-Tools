@@ -4,7 +4,7 @@ Welcome to the essential library for modern creators, entrepreneurs, hustlers, a
 
 ---
 
-## 🌟 Explore Articles
+## 🌟 Explore Articles [WEBSITE](https://msha.ke/debeatzgh) >>> [BLOG](https://debeatzgh.wordpress.com/)
 
 <table>
   <tr>
