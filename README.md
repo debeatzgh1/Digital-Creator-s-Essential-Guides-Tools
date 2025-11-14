@@ -5,7 +5,7 @@ Welcome to the essential library for modern creators, entrepreneurs, hustlers, a
 ---
 
 ## 🌟 Explore Articles [WEBSITE](https://msha.ke/debeatzgh) >>> [BLOG](https://debeatzgh.wordpress.com/) >>> [HOME](https://debeatzgh1.github.io/Home-/)>>>[Quizzes](https://debeatzgh1.github.io/-Interactive-Knowledge-Quizzes/)>>>>[Order Custom](https://debeatzgh1.github.io/Pages-/)
->>> [Deals](https://yazing.com/faves/debeatzgh)
+>>> [Deals](https://yazing.com/faves/debeatzgh)[WISHLIST](https://www.aliexpress.com/p/wish-manage/share.html?smbPageCode=wishlist-amp&spreadId=D1DC0CFE6AFBB7CAE7F705D4B5FECF1FB7BA1B3477A0FB6D84F339DC9B4F2682)
 <table>
   <tr>
     <td align="center" width="33%">
