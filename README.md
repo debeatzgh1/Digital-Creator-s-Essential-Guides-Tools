@@ -1,4 +1,140 @@
 <style>
+  @keyframes fadeSlideUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.05); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  #iframe-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 115%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-content {
+    position: relative;
+    margin: 2% auto;
+    background: #fff;
+    border-radius: 16px;
+    width: 95%;
+    height: 90%;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    overflow: hidden;
+    animation: fadeSlideUp 0.3s ease;
+  }
+
+  #modal-iframe {
+    width: 100%;
+    height: 105%;
+    border: none;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 18px;
+    font-size: 30px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 10;
+  }
+  .close-btn:hover { color: #e11d48; }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // Floating Button Container
+  const btnGroup = document.createElement("div");
+  btnGroup.className = "floating-btn-group";
+  Object.assign(btnGroup.style, {
+    position: "fixed",
+    top: "18px",
+    right: "18px",
+    zIndex: "9999",
+    animation: "heartbeat 2.5s infinite ease-in-out, fadeSlideUp 0.6s ease-out forwards"
+  });
+
+  // Build Button
+  const button = document.createElement("a");
+  button.href = "#";
+  button.innerText = "Build";
+  Object.assign(button.style, {
+    background: "#2563eb",
+    color: "#fff",
+    padding: "8px 14px",
+    borderRadius: "10px",
+    textDecoration: "none",
+    fontSize: "13px",
+    fontWeight: "700",
+    boxShadow: "0 3px 8px rgba(0,0,0,0.25)",
+    whiteSpace: "nowrap",
+  });
+
+  // Modal Structure
+  const modal = document.createElement("div");
+  modal.id = "iframe-modal";
+  modal.innerHTML = `
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <iframe id="modal-iframe" src="" loading="lazy"></iframe>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  // Open Iframe Content
+  button.addEventListener("click", function (e) {
+    e.preventDefault();
+    document.getElementById("modal-iframe").src =
+      "https://debeatzgh1.github.io/-My-Brand-Online-Digital-Products-Affiliate-Shop/";
+    document.getElementById("iframe-modal").style.display = "block";
+  });
+
+  btnGroup.appendChild(button);
+  document.body.appendChild(btnGroup);
+
+  // Close Modal
+  document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("close-btn") || e.target.id === "iframe-modal") {
+      modal.style.display = "none";
+      document.getElementById("modal-iframe").src = "";
+    }
+  });
+
+  // Open external links in new tab
+  document.getElementById("modal-iframe").addEventListener("load", function () {
+    try {
+      const links = this.contentDocument.querySelectorAll("a");
+      links.forEach(link => {
+        if (!link.href.includes("debeatzgh1.github.io")) {
+          link.setAttribute("target", "_blank");
+          link.setAttribute("rel", "noopener");
+        }
+      });
+    } catch (err) {
+      console.warn("External site - cannot rewrite links");
+    }
+  });
+
+});
+</script>
+
+
+<style>
   /* 🌟 Floating Button Animation */
   @keyframes fadeSlideUp {
     0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
