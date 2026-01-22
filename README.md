@@ -1,530 +1,249 @@
-<style>
-  /* 🌟 Floating Button Animation */
-  @keyframes fadeSlideUp {
-    0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
-    100% { opacity: 1; transform: translateX(-50%) translateY(0); }
-  }
 
-  .floating-btn-group {
-    animation: fadeSlideUp 0.6s ease-out;
-  }
-
-  .floating-btn-group a:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-  }
-
-  /* 🌟 Iframe Modal */
-  #iframe-modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 115%;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(4px);
-  }
-
-  .modal-content {
-    position: relative;
-    margin: 2% auto;
-    background: #fff;
-    border-radius: 16px;
-    width: 95%;
-    height: 90%;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    overflow: hidden;
-    animation: fadeIn 0.3s ease;
-  }
-
-  #modal-iframe {
-    width: 100%;
-    height: 105%;
-    border: none;
-  }
-
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 18px;
-    font-size: 30px;
-    color: #333;
-    cursor: pointer;
-    transition: color 0.2s;
-    z-index: 10;
-  }
-
-  .close-btn:hover {
-    color: #e11d48;
-  }
-
-  @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(-10px);}
-    to {opacity: 1; transform: translateY(0);}
-  }
-</style>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  // 🔹 Create Floating Button Group
-  const btnGroup = document.createElement("div");
-  btnGroup.className = "floating-btn-group";
-  Object.assign(btnGroup.style, {
-    position: "fixed",
-    bottom: "16px",
-    left: "50%",
-    transform: "translateX(-50%)",
-    display: "flex",
-    gap: "10px",
-    zIndex: "9999",
-    background: "rgba(0,0,0,0.1)",
-    padding: "6px 10px",
-    borderRadius: "10px",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-    opacity: "0",
-    animation: "fadeSlideUp 0.6s ease-out forwards"
-  });
-
-  // -------------------------------------------------------
-  // ✅ BUTTONS INCLUDING NEW “IDEAS” BUTTON
-  // -------------------------------------------------------
-  const buttons = [
-    {
-      text: "🔥 Home",
-      bg: "#1e90ff",
-      url: "https://debeatzgh1.github.io/Digital-Creator-s-Essential-Guides-Tools/"
-    },
-    {
-      text: "📌 Feed",
-      bg: "#16a34a",
-      url: "https://debeatzgh.wordpress.com/"
-    },
-    {
-      text: "💡 Ideas",
-      bg: "#c026d3",
-      url: "https://msha.ke/debeatzgh"
-    }
-  ];
-
-  // 🔹 Create Iframe Modal
-  const modal = document.createElement("div");
-  modal.id = "iframe-modal";
-  modal.innerHTML = `
-    <div class="modal-content">
-      <span class="close-btn">&times;</span>
-      <iframe id="modal-iframe" src="" loading="lazy"></iframe>
-    </div>
-  `;
-  document.body.appendChild(modal);
-
-  // 🔹 Add Buttons to Page
-  buttons.forEach(function (btn) {
-    const a = document.createElement("a");
-    a.href = "#";
-    a.innerText = btn.text;
-    Object.assign(a.style, {
-      background: btn.bg,
-      color: "#fff",
-      padding: "8px 14px",
-      borderRadius: "20px",
-      textDecoration: "none",
-      fontSize: "13px",
-      fontWeight: "600",
-      whiteSpace: "nowrap",
-      boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
-      transition: "opacity 0.3s ease, transform 0.3s ease"
-    });
-
-    a.addEventListener("click", function (e) {
-      e.preventDefault();
-      document.getElementById("modal-iframe").src = btn.url;
-      document.getElementById("iframe-modal").style.display = "block";
-    });
-
-    btnGroup.appendChild(a);
-  });
-
-  document.body.appendChild(btnGroup);
-
-  // 🔹 Close Modal
-  document.addEventListener("click", function (e) {
-    if (e.target.classList.contains("close-btn") || e.target.id === "iframe-modal") {
-      modal.style.display = "none";
-      document.getElementById("modal-iframe").src = "";
-    }
-  });
-
-  // 🔹 Auto-open external ads in new tab safely
-  document.getElementById("modal-iframe").addEventListener("load", function () {
-    try {
-      const links = this.contentDocument.querySelectorAll("a");
-      links.forEach(link => {
-        if (!link.href.includes("debeatzgh.wordpress.com")) {
-          link.setAttribute("target", "_blank");
-          link.setAttribute("rel", "noopener");
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeBeatzGH | Digital Ecosystem Launcher</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --accent: #ef4444;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --glass: rgba(30, 41, 59, 0.8);
         }
-      });
-    } catch (err) {
-      console.warn("External site - cannot rewrite links");
-    }
-  });
 
-});
-</script>
-# 📚 Digital Success Vault: Curated Guides for Business, AI, Productivity, & Side Hustles
+        [data-theme="light"] {
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #0f172a;
+            --glass: rgba(255, 255, 255, 0.8);
+        }
 
-Welcome to the essential library for modern creators, entrepreneurs, hustlers, and innovators. Browse actionable guides, tools, and strategies—from AI-powered productivity to monetisation, affiliate marketing and real-world side hustle ideas. Each resource is visually curated for a delightful, professional experience. 🚀
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); transition: 0.3s; overflow-x: hidden; }
 
----
+        /* --- Heartbeat Animation --- */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+        .badge-live {
+            background: var(--accent); color: white; padding: 2px 8px;
+            border-radius: 20px; font-size: 0.65rem; font-weight: 800;
+            display: inline-block; animation: heartbeat 2s infinite;
+            vertical-align: middle; margin-left: 5px;
+        }
 
-## 🌟 Explore Articles)
-<table>
-  <tr>
-    <td align="center" width="33%">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/amodernflat-styleillustrationofanotificationbellwithglowinghighlightssurroundedbyabstractshapespaperenvelopesanddigitalicons28emailmessageupdate293314991682681990671.jpg" width="105" style="border-radius:12px" />
-      <br><b>Updates</b>
-      <br><small>Stay up-to-date with the latest features, tools, and improvements for creators.</small>
-      <br>
-      <a href="https://beatzde4.blogspot.com/p/blog-post-menu.html" style="background:#2b7cff;color:#fff;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">View Updates</a>
-    </td>
-    <td align="center" width="33%">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/><small>Explore Firebase-curated frontend UI components for fast, beautiful development.</small>
-      <br>
-      <a href="https://beatzde4.blogspot.com/p/firebase-curated-front-end-components.html" style="background:#00b894;color:#fff;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Browse Components</a>
-    </td>
-    <td align="center" width="33%">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550753355015215823208011315422.jpg" width="105" style="border-radius:12px" />
-      <br><b>AI and Productivity</b>
-      <br><small>Boost your workflow and get the best cashback and productivity tips with AI tools.</small>
-      <br>
-      <a href="https://beatzde4.blogspot.com/p/get-20-cashback-on-every-products.html" style="background:#fab1a0;color:#222;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">See Productivity Tips</a>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550417028037724303471824316179.jpg" width="105" style="border-radius:12px" />
-      <br><b>Tech Business Tools & Ideas</b>
-      <br><small>Use free digital tools and strategies to build and manage your tech business from scratch.</small>
-      <br>
-      <a href="https://beatzde4.blogspot.com/p/build-websites-and-blogs-for-free.html" style="background:#636e72;color:#fff;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Explore Business Tools</a>
-    </td>
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/minimalistbusinessiconthemealaptopwithdollarsignsorgrowtharrows4197483127374475983.jpg" width="105" style="border-radius:12px" />
-      <br><b>Internet Marketing Tools & Startup Ideas</b>
-      <br><small>Unlock the potential of SEO/SEM and marketing strategies to accelerate growth!</small>
-      <br>
-      <a href="https://beatzde4.blogspot.com/p/merits-of-seo-sem-to-your-business-or.html" style="background:#fdcb6e;color:#222;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Marketing Tools</a>
-    </td>
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/designadigitalproductse-commerceonlinedeals3545265155247625100.jpg" width="105" style="border-radius:12px" />
-      <br><b>AI-Powered Affiliate Marketing (Beginner's Guide)</b>
-      <br><small>Kickstart easy affiliate earning with user-friendly AI strategies & platforms.</small>
-      <br>
-      <a href="https://beatzde4.blogspot.com/p/websites-and-it-importance.html" style="background:#6c5ce7;color:#fff;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Start Affiliate Journey</a>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550752768858270075844257043940.jpg" width="105" style="border-radius:12px" />
-      <br><b>Start AI Marketing Agency From Scratch</b>
-      <br><small>Acquire skills and smart ideas for building your own hands-on AI-powered agency.</small>
-      <br>
-      <a href="https://beatzde4.blogspot.com/p/acquire-new-skills-and-ideas-with.html" style="background:#0984e3;color:#fff;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Launch AI Agency</a>
-    </td>
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550752905574451607135626005441.jpg" width="105" style="border-radius:12px" />
-      <br><b>Monetisation Tools & Ideas</b>
-      <br><small>Step-by-step beginner's guide for using monetisation strategies on blogs, sites, & social media.</small>
-      <br>
-      <a href="https://beatzde4.blogspot.com/p/monetization-guide-for-beginners.html" style="background:#00cec9;color:#222;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Start Monetising</a>
-    </td>
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/acleanlayoutwithanotebookandpenorabrandboardmock-upwithlogosketchesandcolorswatchesoverlaytextyourbrandonline487460059552357305.jpg" width="105" style="border-radius:12px" />
-      <br><b>Ultimate Guide to Validating Business Ideas</b>
-      <br><small>Quickly validate business concepts and launch with confidence using WordPress!</small>
-      <br>
-      <a href="https://beatzde4.blogspot.com/p/learn-entire-wordpress-within-minutes.html" style="background:#ff7675;color:#222;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Validate Your Idea</a>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550753518668254821238386385497.jpg" width="105" style="border-radius:12px" />
-      <br><b>Bring Your Creativity to Life With AI</b>
-      <br><small>Unleash your creative potential with AI design tools for entrepreneurs & artists.</small>
-      <br>
-      <a href="https://beatzde4.blogspot.com/p/how-to-make-your-creativities-brands.html" style="background:#00b894;color:#fff;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Boost Creativity</a>
-    </td>
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550417188267308669484942620808.jpg" width="105" style="border-radius:12px" />
-      <br><b>ChatGPT Monetisation Tools & Ideas</b>
-      <br><small>Discover smart communication tools and AI monetisation hacks for beginners.</small>
-      <br>
-      <a href="https://beatzde4.blogspot.com/p/best-communication-tools-for-beginners.html" style="background:#81ecec;color:#222;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Explore ChatGPT Tools</a>
-    </td>
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550417188267308669484942620808.jpg" width="105" style="border-radius:12px" />
-      <br><b>Online Business Tools & Ideas</b>
-      <br><small>Learn proven ways to earn online, build businesses, and generate passive income.</small>
-      <br>
-      <a href="https://beatzde4.blogspot.com/p/real-ways-to-earn-money-online.html" style="background:#fdcb6e;color:#222;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Explore Business Tools</a>
-    </td>
-  </tr>
-  <tr>
-    <!-- Continue more rows as above for remaining resources (AI enhancing creativity, Freelancing, Work from home, more ideas etc.) 
-         Due to space and length, add more sections as needed following similar format. -->
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/11/1761391370669_18092671662032788462.jpg" width="105" style="border-radius:12px" />
-      <br><b>Ultimate Guide to AI Prompt</b>
-      <br><small>Master prompt engineering & use AI to turbocharge your marketing, writing, and business workflows.</small>
-      <br>
-      <a href="https://debeatzgh1.blogspot.com/2025/06/the-ultimate-guide-to-ai-prompts-for.html" style="background:#636e72;color:#fff;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Read Guide</a>
-    </td>
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/designadigitalproductse-commerceonlinedeals3545265155247625100.jpg" width="105" style="border-radius:12px" />
-      <br><b>How to Build Digital Products Using AI</b>
-      <br><small>Step-by-step framework for building, automating, and scaling digital products with AI.</small>
-      <br>
-      <a href="https://debeatzgh1.blogspot.com/p/step-by-step-guide-how-to-build-digital.html" style="background:#ff7675;color:#222;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Build With AI</a>
-    </td>
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/11/imagine_15234543753668861274081520587714881.jpg" width="105" style="border-radius:12px" />
-      <br><b>Ultimate Guide to Online Business</b>
-      <br><small>Your go-to resource for launching, scaling, and succeeding in any online business niche.</small>
-      <br>
-      <a href="https://debeatzgh1.blogspot.com/p/home.html" style="background:#2b7cff;color:#fff;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Open Guide</a>
-    </td>
-  </tr>
-  <tr>
-    <!-- Continue adding Side Hustle resources -->
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550752905574451607135626005441.jpg" width="105" style="border-radius:12px" />
-      <br><b>Side Hustle Tools & Ideas (Home)</b>
-      <br><small>Start your side hustle journey, discover updates, tools, and data privacy essentials.</small>
-      <br>
-      <a href="https://digimartgh.blogspot.com/p/sign-in-for-more_19.html" style="background:#00b894;color:#fff;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Go to Home</a>
-    </td>
-    <td align="center">
-      <img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/designamodernminimalisticlogoforadigitaltoolcalledall-in-onefloatinginfomenuforblogger5444122951694103302.jpg" width="105" style="border-radius:12px" />
-      <br><b>Ultimate Startup Guide</b>
-      <br><small>DigimartGH's guide for new startups—resources to launch, grow, and scale.</small>
-      <br>
-      <a href="https://digimartgh.blogspot.com/p/digimartgh-store.html" style="background:#00cec9;color:#222;border-radius:6px;padding:8px 20px;font-size:.95em;text-decoration:none;display:inline-block;margin-top:5px;font-weight:600;">Start Your Startup</a>
-    </td>
-  </tr>
-</table>
+        /* --- Layout --- */
+        .top-nav {
+            position: fixed; top: 0; width: 100%; padding: 15px 30px;
+            background: var(--glass); backdrop-filter: blur(12px);
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
 
----
+        .container { max-width: 1200px; margin: 100px auto 50px; padding: 0 20px; }
 
-> 📎 **How to Use:**  
-> - Click the colored button to open your desired guide in the same tab.  
-> - Enjoy resized thumbnails for fast, friendly preview.  
-> - Find your inspiration, learn new strategies, and accelerate your digital success!
+        h2.section-title {
+            margin: 40px 0 20px; font-size: 1.5rem; display: flex; align-items: center; gap: 10px;
+        }
+        h2.section-title i { color: var(--primary); }
 
----
+        /* --- Tab Grid --- */
+        .launcher-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;
+        }
 
-**Created by [debeatzgh1](https://github.com/debeatzgh1) — Empowering digital entrepreneurs, creators, and hustle communities.**
+        .launch-card {
+            background: var(--card); padding: 20px; border-radius: 16px;
+            border: 1px solid rgba(128,128,128,0.1); transition: 0.3s;
+            cursor: pointer; position: relative; overflow: hidden;
+        }
+        .launch-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .launch-card h3 { font-size: 1rem; margin-bottom: 8px; }
+        .launch-card p { font-size: 0.8rem; opacity: 0.6; margin-bottom: 15px; }
 
----
-**Digital Creator’s Essential Guides & Tools**
+        .type-tag {
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--primary); font-weight: 700;
+        }
 
----
+        /* --- Smart Iframe Modal --- */
+        #iframe-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999; display: none; flex-direction: column;
+        }
+        .iframe-controls {
+            background: #1e293b; padding: 10px 20px; display: flex;
+            justify-content: space-between; align-items: center; color: white;
+        }
+        .iframe-actions i { margin-left: 20px; cursor: pointer; font-size: 1.2rem; }
+        .iframe-actions i:hover { color: var(--primary); }
+        iframe { width: 100%; flex-grow: 1; border: none; }
 
-# 🏆 Digital Creator’s Essential Guides & Tools
+        /* --- Auto Slider --- */
+        .slider-box { background: var(--primary); color: white; padding: 15px 0; margin-top: 40px; overflow: hidden; white-space: nowrap; }
+        .slider-track { display: inline-block; animation: scroll 40s linear infinite; }
+        .slider-item { display: inline-block; margin: 0 30px; font-weight: 600; font-size: 0.9rem; }
 
-A curated library of guides, tools, and actionable ideas to help creators, entrepreneurs, freelancers, and marketers thrive with AI, tech, and business solutions. Discover up-to-date strategies, best practices, and productivity resources—hand-picked for your growth!
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
----
+        /* --- Footer Socials --- */
+        footer { text-align: center; padding: 50px 20px; opacity: 0.7; font-size: 0.9rem; }
+        .socials { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
+        .socials a { color: var(--text); font-size: 1.2rem; }
+    </style>
+</head>
+<body>
 
-## 📚 Table of Contents
+    <div id="iframe-modal">
+        <div class="iframe-controls">
+            <span id="modal-title">Blogger Preview</span>
+            <div class="iframe-actions">
+                <i class="fas fa-expand" title="Full Screen" onclick="toggleFullScreen()"></i>
+                <i class="fas fa-times-circle" title="Close" onclick="closeIframe()" style="color: var(--accent);"></i>
+            </div>
+        </div>
+        <iframe id="portal-frame" src=""></iframe>
+    </div>
 
-| Article | Description | Thumbnail | Button |
-|---|---|---|---|
+    <nav class="top-nav">
+        <div style="font-weight: 800; font-size: 1.2rem;">DEBEATZGH <span style="color:var(--primary)">HUB</span></div>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <div id="liveClock" style="font-family: monospace; font-size: 0.9rem;">00:00:00</div>
+            <i class="fas fa-adjust" onclick="toggleTheme()" style="cursor:pointer"></i>
+        </div>
+    </nav>
 
-<!-- 1 -->
-| **Updates & Announcements** |  
-Stay informed and never miss a release. Explore key updates, feature improvements, and new tools for creators. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/amodernflat-styleillustrationofanotificationbellwithglowinghighlightssurroundedbyabstractshapespaperenvelopesanddigitalicons28emailmessageupdate293314991682681990671.jpg" width="180" style="border-radius:12px" /> |  
-<a href="https://beatzde4.blogspot.com/p/blog-post-menu.html" class="button" style="background:#2b7cff;color:#fff;border-radius:6px;padding:12px 32px;font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Read Updates</a> |
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Modern Workspace</h1>
+            <p style="opacity: 0.7;">Centralized access to all DeBeatzGH platforms and GitHub repositories.</p>
+        </div>
 
-<!-- 2 -->
-| **Frontend Components Library** |  
-A curated hub for Firebase and modular frontend components to accelerate your development. Explore ready-to-use UX/UI elements. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550753129553143934409952739598.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/firebase-curated-front-end-components.html" class="button" style="background:#00b894;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">View Components</a> |
+        <h2 class="section-title"><i class="fab fa-blogger"></i> Blogger Ecosystem <span class="badge-live">IFRAME MODE</span></h2>
+        <div class="launcher-grid">
+            <div class="launch-card" onclick="openPortal('https://debeatzgh1.blogspot.com/', 'Official Blog')">
+                <span class="type-tag">Main Portal</span>
+                <h3>Debeatzgh1 Blog</h3>
+                <p>Primary insights and digital updates.</p>
+            </div>
+            <div class="launch-card" onclick="openPortal('https://beatzde4.blogspot.com/', 'Beatzde4')">
+                <span class="type-tag">Network</span>
+                <h3>Beatzde4</h3>
+                <p>Content syndication and media.</p>
+            </div>
+            <div class="launch-card" onclick="openPortal('https://digimartgh.blogspot.com/', 'DigiMart GH')">
+                <span class="type-tag">Ecommerce</span>
+                <h3>DigiMart GH</h3>
+                <p>Digital marketplace and services.</p>
+            </div>
+            <div class="launch-card" onclick="openPortal('https://mybrandsonline.blogspot.com/', 'Brands Online')">
+                <span class="type-tag">Branding</span>
+                <h3>My Brands Online</h3>
+                <p>Brand management and visibility.</p>
+            </div>
+        </div>
 
-<!-- 3 -->
-| **AI and Productivity** |  
-Get 20% cashback and leverage the best AI tools to boost your workflow and daily outputs. Smart resources for digital entrepreneurs. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550753355015215823208011315422.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/get-20-cashback-on-every-products.html" class="button" style="background:#fdcb6e;color:#222;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Boost Productivity</a> |
+        <h2 class="section-title"><i class="fab fa-github"></i> GitHub Projects <span class="badge-live" style="background:var(--primary)">NEW TAB</span></h2>
+        <div class="launcher-grid">
+            <div class="launch-card" onclick="window.open('https://debeatzgh1.github.io/1/', '_blank')">
+                <span class="type-tag">Project</span>
+                <h3>Official Website</h3>
+                <p>DeBeatzGH main GitHub landing page.</p>
+            </div>
+            <div class="launch-card" onclick="window.open('https://debeatzgh1.github.io/Decode-AI-starter-kit-/', '_blank')">
+                <span class="type-tag">AI Tool</span>
+                <h3>Decode AI Kit</h3>
+                <p>AI-powered starter components.</p>
+            </div>
+            <div class="launch-card" onclick="window.open('https://debeatzgh1.github.io/Personal-Portfolio-site-/', '_blank')">
+                <span class="type-tag">Portfolio</span>
+                <h3>Pro Portfolio</h3>
+                <p>Showcasing development expertise.</p>
+            </div>
+            <div class="launch-card" onclick="window.open('https://debeatzgh1.github.io/Side-hustle-starter-kit-/', '_blank')">
+                <span class="type-tag">Business</span>
+                <h3>Side Hustle Kit</h3>
+                <p>The ultimate guide to extra income.</p>
+            </div>
+            <div class="launch-card" onclick="window.open('https://debeatzgh1.github.io/popup-html-page-generator-blogger/', '_blank')">
+                <span class="type-tag">Utility</span>
+                <h3>Popup Generator</h3>
+                <p>Custom HTML tools for Blogger.</p>
+            </div>
+            <div class="launch-card" onclick="window.open('https://debeatzgh1.github.io/-Floating-Dock-Smart-Iframe-Modal/#', '_blank')">
+                <span class="type-tag">UI Component</span>
+                <h3>Floating Dock</h3>
+                <p>Smart Iframe modal controller.</p>
+            </div>
+        </div>
+    </div>
 
-<!-- 4 -->
-| **Tech Business Tools & Ideas** |  
-Discover free website and blog builders plus digital resources for starting and managing tech businesses from scratch. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550417028037724303471824316179.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/build-websites-and-blogs-for-free.html" class="button" style="background:#0984e3;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Explore Tech Business</a> |
+    <div class="slider-box">
+        <div class="slider-track">
+            <span class="slider-item">🚀 NEW: Decode AI Starter Kit Live</span>
+            <span class="slider-item">💎 PREMIUM: Online Business Kit Available</span>
+            <span class="slider-item">🔥 TRENDING: Modern Tailwind Styling</span>
+            <span class="slider-item">⚡ UPDATE: Collaborative Hub v2.0</span>
+            <span class="slider-item">🚀 NEW: Decode AI Starter Kit Live</span>
+            <span class="slider-item">💎 PREMIUM: Online Business Kit Available</span>
+        </div>
+    </div>
 
-<!-- 5 -->
-| **Internet Marketing Tools & Ideas for Startups** |  
-Learn SEO/SEM basics and advanced strategies to skyrocket your startup’s growth and online reach. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/minimalistbusinessiconthemealaptopwithdollarsignsorgrowtharrows4197483127374475983.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/merits-of-seo-sem-to-your-business-or.html" class="button" style="background:#fab1a0;color:#222;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Master Marketing</a> |
+    <footer>
+        <p>&copy; 2026 DeBeatzGH Digital. Built for Excellence.</p>
+        <div class="socials">
+            <a href="https://wa.me/233549757544"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://facebook.com/Debeatzgh"><i class="fab fa-facebook"></i></a>
+            <a href="https://youtube.com/debeatzgh"><i class="fab fa-youtube"></i></a>
+        </div>
+    </footer>
 
-<!-- 6 -->
-| **AI-Powered Affiliate Marketing: User-Friendly Guide for Beginners** |  
-Step-by-step guide to launching your affiliate business with AI tools for easy setup, promotions, and increasing your earnings. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/designadigitalproductse-commerceonlinedeals3545265155247625100.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/websites-and-it-importance.html" class="button" style="background:#6c5ce7;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Affiliate Guide</a> |
+    <script>
+        // --- Portal Controller ---
+        function openPortal(url, title) {
+            const modal = document.getElementById('iframe-modal');
+            const frame = document.getElementById('portal-frame');
+            document.getElementById('modal-title').innerText = "DeBeatzGH Portal: " + title;
+            frame.src = url;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
 
-<!-- 7 -->
-| **Start AI Marketing Agency from Scratch** |  
-Acquire new skills, actionable ideas, and ready-to-use resources for building your own AI-powered marketing agency. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550752768858270075844257043940.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/acquire-new-skills-and-ideas-with.html" class="button" style="background:#fd79a8;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Build Your Agency</a> |
+        function closeIframe() {
+            const modal = document.getElementById('iframe-modal');
+            const frame = document.getElementById('portal-frame');
+            modal.style.display = 'none';
+            frame.src = '';
+            document.body.style.overflow = 'auto';
+        }
 
-<!-- 8 -->
-| **Monetisation Tools & Ideas** |  
-A practical starter’s guide packed with tools and tips for monetizing blogs, websites, and audiences without experience. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550752905574451607135626005441.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/monetization-guide-for-beginners.html" class="button" style="background:#00cec9;color:#222;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Monetize Now</a> |
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.getElementById('iframe-modal').requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
 
-<!-- 9 -->
-| **Ultimate Guide to Validating Business Ideas** |  
-Validate business concepts quickly and confidently using proven techniques and step-by-step WordPress guides. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/acleanlayoutwithanotebookandpenorabrandboardmock-upwithlogosketchesandcolorswatchesoverlaytextyourbrandonline487460059552357305.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/learn-entire-wordpress-within-minutes.html" class="button" style="background:#636e72;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Validate Ideas</a> |
+        // --- Theme Toggle ---
+        function toggleTheme() {
+            const current = document.body.getAttribute('data-theme');
+            document.body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+        }
 
-<!-- 10 -->
-| **Bring Your Creativity to Life with AI** |  
-Unleash your creative potential with AI-powered design, branding, and automation tools. Perfect for creators and entrepreneurs. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550753518668254821238386385497.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/how-to-make-your-creativities-brands.html" class="button" style="background:#ff7675;color:#222;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Unleash Creativity</a> |
-
-<!-- 11 -->
-| **ChatGPT Monetisation Tools & Ideas** |  
-Discover top communication and monetisation tools powered by ChatGPT for beginners and AI enthusiasts. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550417188267308669484942620808.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/best-communication-tools-for-beginners.html" class="button" style="background:#00b894;color:#222;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Discover ChatGPT Tools</a> |
-
-<!-- 12 -->
-| **Online Business Tools & Ideas** |  
-Explore proven methods to earn money online, build successful businesses, and generate passive income streams. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550417188267308669484942620808.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/real-ways-to-earn-money-online.html" class="button" style="background:#d35400;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Explore Business Ideas</a> |
-
-<!-- 13 -->
-| **AI Enhancing Human Creativity** |  
-Collaborate, create, and share presentations powered by AI to elevate your creative and professional projects to new heights. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/09/asleekandmoderngoogleclassroombannerfortechaihubfeaturingfuturisticdigitalelements261807892942313727.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/create-collaborate-share-presentations.html" class="button" style="background:#00b894;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Enhance Creativity</a> |
-
-<!-- 14 -->
-| **Freelancing Tools & Ideas** |  
-Find the best freelancing opportunities, tools, and guest post strategies to grow your brand and income. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/minimalistbusiness-stylethumbnailrepresentingaportfoliowebsite5051039404148347617.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/post-as-guest.html" class="button" style="background:#6c5ce7;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Explore Freelancing</a> |
-
-<!-- 15 -->
-| **Work from Home Tools & Ideas** |  
-Install digital store apps and adapt proven work-from-home systems for productivity and profitability. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/10/wp-1761820769103628373178067118936.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/install-digital-store-app.html" class="button" style="background:#00cec9;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Work from Home</a> |
-
-<!-- 16 -->
-| **AI Revolutionizing Creativity** |  
-Learn how AI is transforming creative industries and making artistic innovation accessible to all. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/11/1761391318708_15855974686444559481.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/menu.html" class="button" style="background:#81ecec;color:#222;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Discover Creative AI</a> |
-
-<!-- 17 -->
-| **Explore More Ideas** |  
-Endless resources and general prompts for AI & ChatGPT. Discover unique and actionable ways to grow online. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/11/1761391335126_1483862464414766963.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/use-general-chat-gpt.html" class="button" style="background:#00b894;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Explore More</a> |
-
-<!-- 18 -->
-| **Top Facebook Monetize Niches** |  
-Monetize your Facebook page/blog with these top-performing niche strategies and practical tips. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550417028037724303471824316179.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/order-blog-site.html" class="button" style="background:#0984e3;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">See Facebook Niches</a> |
-
-<!-- 19 -->
-| **AI Prompt for Bloggers** |  
-Order a custom mobile app or learn how to supercharge your blog with AI-generated prompts and automation. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/11/1761391370669_18092671662032788462.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/order-mobile-app.html" class="button" style="background:#b2bec3;color:#222;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Get AI Prompts</a> |
-
-<!-- 20 -->
-| **Write Smarter, Not Harder with AI** |  
-How to use AI-driven writing platforms and tools (like Viquote Canvas) to optimize your content creation. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/wp-17550752905574451607135626005441.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/use-viquote-canvas-for-free.html" class="button" style="background:#0984e3;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Write with AI</a> |
-
-<!-- 21 -->
-| **A User-Friendly Guide to Google Essentials** |  
-Learn the basics of Google tools and how they can change your workflow and productivity. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/09/asleekandmoderngoogleclassroombannerfortechaihubfeaturingfuturisticdigitalelements261807892942313727.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/blog-page.html" class="button" style="background:#00b894;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Learn Google Essentials</a> |
-
-<!-- 22 -->
-| **The Basics: Decoding AI** |  
-Discover fundamental AI concepts, cashback and best deals for digital learners. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/08/designamodernminimalisticlogoforadigitaltoolcalledall-in-onefloatinginfomenuforblogger5444122951694103302.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/get-cashback-free-shipping-deals-and.html" class="button" style="background:#fdcb6e;color:#222;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Decode AI Basics</a> |
-
-<!-- 23 -->
-| **Comprehensive Guide to AI Prompt** |  
-Shop smarter with Aliexpress and AI-generated shopping prompts. Master AI prompt engineering in business. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/11/1761391380963_15569709346340608805.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/shop-on-aliexpress.html" class="button" style="background:#00b894;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Guide to AI Prompt</a> |
-
-<!-- 24 -->
-| **Ultimate Guide to Affiliate Marketing** |  
-Learn how to set up, launch, and grow your affiliate marketing—from basics to advanced strategies and delivery. |  
-<img src="https://debeatzgh.wordpress.com/wp-content/uploads/2025/11/1761391391306_15408698464420732825.jpg" width="180" style="border-radius:12px"/> |  
-<a href="https://beatzde4.blogspot.com/p/quickdeliver-your-delivery-app-body.html" class="button" style="background:#0984e3;color:#fff;border-radius:6px;padding:12px 32px; font-size:1em;text-decoration:none;display:inline-block;font-weight:600;">Affiliate Marketing Guide</a> |
-
----
-
-## 📌 How to Use This Repo
-
-- **Browse Each Section:** Click “Read Article” or relevant action to dive deeper into each topic.
-- **Benefit From Visual Navigation:** Thumbnails are designed for clarity, brand engagement, and a welcoming user experience.
-- **Share & Collaborate:** Use these resources for your own learning, share with your network, and contribute your feedback or additional ideas!
-
----
-
-## 🎨 Button CSS (Add to your HTML):
-
-```css
-.button {
-  background: #2b7cff;
-  color: #fff;
-  border-radius: 6px;
-  padding: 12px 32px;
-  font-size: 1em;
-  text-decoration: none;
-  display: inline-block;
-  font-weight: 600;
-  margin: 8px 0;
-  transition: background 0.2s;
-}
-.button:hover {
-  background: #0984e3;
-  color: #fff;
-}
-```
-
----
-
-## 🚀 Your Digital Journey Starts Here!
-
-Feel free to fork, contribute, or reach out for collaborations.  
-Every button leads you to practical guides, tools, and essential knowledge to grow!
-
----
-
-**Created by [debeatzgh1](https://github.com/debeatzgh1) — Connecting Creators, Innovators & Entrepreneurs**
+        // --- Clock ---
+        setInterval(() => {
+            document.getElementById('liveClock').innerText = new Date().toLocaleTimeString();
+        }, 1000);
+    </script>
+</body>
+</html>
