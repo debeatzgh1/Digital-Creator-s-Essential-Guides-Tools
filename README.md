@@ -3,6 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --nav-glass: rgba(13, 17, 23, 0.85);
+            --nav-border: rgba(255, 255, 255, 0.1);
+            --color-guide: #00f2fe; /* Cyan */
+            --color-home: #70ff03;  /* Green */
+            --color-social: #ff007a; /* Pink */
+            --color-top: #ffffff;   /* White */
+        }
+
+        .side-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-left { left: 0; }
+        .nav-right { right: 0; }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: var(--nav-glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--nav-border);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-left .nav-item { border-radius: 0 10px 10px 0; border-left: none; }
+        .nav-right .nav-item { border-radius: 10px 0 0 10px; border-right: none; }
+
+        .item-guide { color: var(--color-guide); }
+        .item-social { color: var(--color-social); }
+        .item-home { color: var(--color-home); }
+        .item-top { color: var(--color-top); opacity: 0; visibility: hidden; transition: 0.5s; }
+        .item-top.visible { opacity: 1; visibility: visible; }
+
+        .shake-anim { animation: timely-shake 0.5s ease-in-out; }
+        @keyframes timely-shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(4px); }
+            50% { transform: translateX(-4px); }
+        }
+
+        .nav-item:hover { width: 60px; }
+        .item-guide:hover { background: var(--color-guide); color: #000; }
+        .item-social:hover { background: var(--color-social); color: #fff; }
+        .item-home:hover { background: var(--color-home); color: #000; }
+        .item-top:hover { background: #fff; color: #000; }
+
+        .nav-item::after {
+            content: attr(data-label);
+            position: absolute;
+            font-size: 9px;
+            font-weight: 900;
+            white-space: nowrap;
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .nav-left .nav-item::after { left: 65px; color: inherit; }
+        .nav-right .nav-item::after { right: 65px; color: inherit; }
+        .nav-item:hover::after { opacity: 1; }
+
+        svg { width: 22px; height: 22px; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <div class="side-nav nav-left">
+        <a href="https://debeatzgh1.github.io/me-/" target="_blank" class="nav-item item-guide shake-trigger" data-label="Essential Guides">
+            <svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        </a>
+        <a href="https://debeatzgh1.github.io/The-Ultimate-Guide-to-Side-Hustle/" target="_blank" class="nav-item item-social shake-trigger" data-label="Side Hustle">
+            <svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.4 8.38 8.38 0 0 1 3.9 1.1L21 3z"></path></svg>
+        </a>
+    </div>
+
+    <div class="side-nav nav-right">
+        <a href="https://debeatzgh1.github.io/Decode-AI-starter-kit-/" target="_blank" class="nav-item item-home shake-trigger" data-label="AI Starter Kit">
+            <svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        </a>
+        <div onclick="scrollToTop()" class="nav-item item-top" id="backToTop" data-label="Back To Top">
+            <svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        </div>
+    </div>
+
+    <script>
+        function startShaking() {
+            const icons = document.querySelectorAll('.shake-trigger');
+            setInterval(() => {
+                icons.forEach((icon, index) => {
+                    setTimeout(() => {
+                        icon.classList.add('shake-anim');
+                        setTimeout(() => icon.classList.remove('shake-anim'), 500);
+                    }, index * 200);
+                });
+            }, 6000);
+        }
+
+        const topBtn = document.getElementById('backToTop');
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                topBtn.classList.add('visible');
+            } else {
+                topBtn.classList.remove('visible');
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onload = startShaking;
+    </script>
+
+</body>
+</html>
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeBeatzGH | Digital Ecosystem Launcher</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
