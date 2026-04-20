@@ -1,3 +1,10 @@
+<!-- Elfsight Announcement Bar | Ads -->
+<script src="https://elfsightcdn.com/platform.js" async></script>
+<div class="elfsight-app-da4c4e26-f1fe-4865-98e5-07ab2384d659" data-elfsight-app-lazy></div>
+
+
+
+
 <!-- Elfsight Popup | Untitled Popup -->
 <script src="https://elfsightcdn.com/platform.js" async></script>
 <div class="elfsight-app-91604bc2-39c7-4e66-8173-ead1fe86bfbc" data-elfsight-app-lazy></div>
